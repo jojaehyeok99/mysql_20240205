@@ -112,6 +112,49 @@ UPDATE primary_table
 -- SET NULL : 참조하고 있는 테이블에서 데이터를 삭제하거나 수정했을 때, 참조하는 테이블의 해당 데이터를 NULL로 지정
 -- RESTRICT : 참조하는 테이블에 데이터가 존재한다면 수정 삭제가 불가능
 
+CREATE TABLE optional_foreign_table (
+	primary_column INT,
+    foreign_column INT,
+    FOREIGN KEY (foreign_column)
+    REFERENCES primary_table (primary_column)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL
+);
+
+INSERT INTO primary_table VALUES (1, 1); # 부모 테이블 데이터 값
+INSERT INTO optional_foreign_table VALUES (1, 1); # 자식 테이블 데이터 값
+SELECT * FROM optional_foreign_table;
+
+UPDATE primary_table SET primary_column =3 WHERE primary_column = 1;
+
+DELETE FROM primary_table WHERE primary_column = 3;
+
+#------------------------------------------------------------------------#
+-- CHECK 제약조건 : 특정 컬럼에 값을 제한함
+CREATE TABLE check_table (
+	primary_column INT PRIMARY KEY,
+    check_column VARCHAR(10) CHECK(check_column IN('남','여'))
+);
+
+INSERT INTO check_table VALUES (1, '남');
+-- CHECK로 지정된 컬럼은 지정 조건에 부합하지 않으면 INSERT 불가능
+INSERT INTO check_table VALUES (2, '남자');
+
+-- CHECK로 지정된 컬럼은 지정 조건에 부합하지 않으면 UPDATE 불가능
+UPDATE check_table SET check_column = '남자';
+
+#------------------------------------------------------------------------#
+-- DEFAULT 제약조건 : 컬럼에 데이터가 지정되지 않았을 때 사용할 기본값 지정
+CREATE TABLE default_table (
+	primary_column INT PRIMARY KEY,
+    default_column VARCHAR(10) DEFAULT '기본값'
+);
+
+INSERT INTO default_table (primary_column) VALUES(1);
+INSERT INTO default_table VALUES(2, null);
+SELECT * FROM default_table;
+
+
 
 
 
