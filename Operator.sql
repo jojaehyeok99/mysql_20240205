@@ -99,4 +99,44 @@ SELECT * FROM jeju WHERE speed_80m > 4 OR direction_50m <180;
 -- XOR : 좌항과 우항이 다르면 true
 SELECT * FROM jeju WHERE speed_80m > 4 XOR direction_50m <180;
 
+#----------------------------------------------------------------------#
+-- LIKE 연산자 : 문자열을 비교할 때 패턴을 기준으로 비교
+
+-- % : 임의의 갯수(0~ 무한대)의 문자
+SELECT * FROM jeju WHERE observe_date LIKE '20%'; # 20으로 시작하는 문자열 출력
+SELECT * FROM jeju WHERE observe_date LIKE '%08'; # 08로 끝나는 문자열 출력
+SELECT * FROM jeju WHERE observe_date LIKE '%08%'; # 08을 포함하는 문자열 출력
+
+-- _ : 임의의 한 개 문자
+SELECT * FROM jeju WHERE observe_date LIKE '20_'; # 20_(세자리) 값 데이터 출력 -> 결과는 0개
+SELECT * FROM jeju WHERE observe_date LIKE '2023-__-08'; # __(두자리)에 들어오는 갯수에 맞게 출력
+
+-- 정렬
+-- ORDER BY : 쿼리 결과 기준으로 정렬
+-- ASC : 오름차순 정렬
+-- DESC : 내림차순 정렬
+
+SELECT * FROM jeju ORDER BY speed_80m ASC;
+SELECT * FROM jeju ORDER BY speed_80m DESC;
+
+-- SELECT문 찾는 순서
+-- 1. FROM
+-- 2. WHERE
+-- 3. ORDER BY
+-- 4. SELECT
+SELECT observe_date FROM jeju ORDER BY speed_80m DESC;
+
+-- 중복제거
+-- DISTINCT : SELECT 결과 테이블에서 컬럼의 조합의 중복을 제거하여 출력
+SELECT DISTINCT above_avg_spd FROM jeju;
+SELECT DISTINCT above_avg_spd, above_avg_dir FROM jeju;
+
+
+
+
+
+
+
+
+
 
