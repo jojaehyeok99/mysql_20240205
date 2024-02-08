@@ -25,7 +25,7 @@ SELECT * FROM jeju2;
 -- 그룹화(GROUP BY) : 레코드를 하나 이상의 컬럼으로 그룹하여 결과를 도출하고자 할 때 사용
 -- 					일반적으로 집계함수와 함께 사용됨
 
-SELECT observe_date FROM jeju2 GROUP BY observe_date;  
+SELECT observe_date FROM jeju2 GROUP BY observe_date;  # = DISTINCT(중복제거)로도 사용할 수 있음
 
 # 7월 상반기안에 데이터는 15개지만, 그룹화 할때는 하나의 데이터만 나타내기 때문에 15개의 데이터를 나타낼려고 할때는 안됨 
 SELECT observe_date, speed_80m FROM jeju2 GROUP BY observe_date; 

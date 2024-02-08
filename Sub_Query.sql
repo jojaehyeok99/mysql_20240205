@@ -23,7 +23,7 @@ FROM (
 	SELECT name, department_code
     FROM employee
     WHERE department_code IS NULL
-) AS SQ
+) AS SQ # 주의! 서브쿼리에 대한 테이블명을 지정해줘야됨
 WHERE name = '홍길동';
 
 SELECT * 
